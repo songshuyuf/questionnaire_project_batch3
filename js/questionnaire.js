@@ -43,8 +43,8 @@ function startQuestionnaire() {
     // 生成唯一ID：只用姓名+性别+年龄（不加时间戳）
     const newUserId = `${userName}_${userGender}_${userAge}`;
     
-    // 🆕 检查localStorage里是否有旧数据
-    const saved = localStorage.getItem('questionnaireProgress');
+    // 检查localStorage里是否有旧数据
+    const saved = localStorage.getItem(`questionnaireProgress_${CONFIG.BATCH_ID}`);
     if (saved) {
         try {
             const data = JSON.parse(saved);
@@ -292,18 +292,20 @@ function saveProgress() {
         lastUpdate: new Date().toISOString()
     };
     
-    localStorage.setItem('questionnaireProgress', JSON.stringify(progressData));
+    // 使用BATCH_ID区分不同问卷
+    localStorage.setItem(`questionnaireProgress_${CONFIG.BATCH_ID}`, JSON.stringify(progressData));
 }
 
 // 加载保存的进度
 function loadProgress() {
-    const saved = localStorage.getItem('questionnaireProgress');
+    // 使用BATCH_ID区分不同问卷
+    const saved = localStorage.getItem(`questionnaireProgress_${CONFIG.BATCH_ID}`);
     
     if (saved) {
         try {
             const data = JSON.parse(saved);
             
-            // 🆕 询问是否继续
+            // 询问是否继续
             if (confirm(`检测到未完成的问卷（${data.userName}, ${data.userGender === 'male' ? '男' : data.userGender === 'female' ? '女' : '其他'}, ${data.userAge}岁，进度：${data.currentIndex + 1}/${CONFIG.IMAGES.length}），是否继续？`)) {
                 // 点"确定" - 恢复进度并直接进入问卷
                 userName = data.userName;
@@ -330,7 +332,7 @@ function loadProgress() {
                     startTime = new Date();
                 }
                 
-                // 🆕 直接跳转到问卷页面
+                // 直接跳转到问卷页面
                 showPage('questionnairePage');
                 loadImage(currentIndex);
                 
@@ -349,7 +351,8 @@ function loadProgress() {
 
 // 清除保存的进度
 function clearProgress() {
-    localStorage.removeItem('questionnaireProgress');
+    // 使用BATCH_ID区分不同问卷
+    localStorage.removeItem(`questionnaireProgress_${CONFIG.BATCH_ID}`);
 }
 
 // 保存并退出（提前交卷）
@@ -478,4 +481,3 @@ function showLoading(show) {
         overlay.classList.remove('active');
     }
 }
-
