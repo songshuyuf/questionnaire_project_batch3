@@ -1,7 +1,7 @@
 // 问卷配置文件
 const CONFIG = {
     // Google Sheets Web App URL（部署后填入）
-    GOOGLE_SHEETS_URL: 'https://script.google.com/macros/s/AKfycbx3daZshnasE8CCn_S-ETRoE-3i6SkF4CAODN3N2GDd0M94RJXPzLRZnz2w545Q1tGdyg/exec',
+    GOOGLE_SHEETS_URL: 'https://script.google.com/macros/s/AKfycbxSbFHzm1al39aZGQT2LNzbwIZ6ZpPAEy2g0rw1m1yaFT7rG4ZDDyRN5OFlgVjD_OI55g/exec',
     
     // 图片URL列表（从你的GitHub图床）
     IMAGES: [],
@@ -70,7 +70,7 @@ function generateTestImages() {
         const num = String(i).padStart(3, '0');
         testImages.push({
             filename: `A${num}.jpg`,
-            url: `https://raw.githubusercontent.com/songshuyuf/questionnaire-images/main/faces_batch1/A${num}.jpg`
+            url: `https://raw.githubusercontent.com/songshuyuf/questionnaire-images/main/faces_batch3/A${num}.jpg`
         });
     }
     return testImages;
@@ -103,4 +103,5 @@ function stringToSeed(str) {
         hash = hash & hash;
     }
     return Math.abs(hash);
+
 }
