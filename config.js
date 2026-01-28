@@ -13,17 +13,17 @@ const CONFIG = {
         valence: {
             name: '愉悦度',
             subtitle: '（这张图片让您感到）',
-            labels: ['很不愉快', '中性', '很愉快']
+            labels: ['很愉快', '中性', '很不愉快']
         },
         arousal: {
             name: '唤醒度',
             subtitle: '（这张图片让您感到）',
-            labels: ['很平静', '中等', '很激动']
+            labels: ['很激动', '中等', '很平静']
         },
         dominance: {
             name: '支配度',
             subtitle: '（这张图片让您感到）',
-            labels: ['完全被控制', '中等', '完全掌控']
+            labels: ['完全掌控', '中等', '完全被掌控']
         }
     },
     
@@ -123,6 +123,7 @@ function stringToSeed(str) {
     }
     return Math.abs(hash);
 }
+
 
 
 
