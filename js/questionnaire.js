@@ -71,7 +71,7 @@ function createSAMScale(containerId, dimension) {
         item.onclick = () => selectRating(dimension, i);
         
         // 计算对应的图标索引（5个小人对应9个级别）
-        const iconIndex = Math.min(Math.floor((i - 1) / 2), 4);
+        const iconIndex = 4 - Math.min(Math.floor((i - 1) / 2), 4);
         
         // SAM图标
         const icon = document.createElement('img');
@@ -420,4 +420,5 @@ function showLoading(show) {
         overlay.classList.remove('active');
     }
 }
+
 
