@@ -5,14 +5,26 @@ async function submitToGoogleSheets(data) {
     try {
         const formattedData = flattenResponses(data);
         
-        const response = await fetch(CONFIG.GOOGLE_SHEETS_URL, {
+        // 更新加载提示文字
+        const loadingText = document.querySelector('.loading-overlay p');
+        if (loadingText) {
+            loadingText.textContent = `正在提交${data.responses.length}张图片的数据，请稍候（约需1-2分钟）...`;
+        }
+        
+        // 发送请求（no-cors模式无法读取响应）
+        fetch(CONFIG.GOOGLE_SHEETS_URL, {
             method: 'POST',
             mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formattedData)
+        }).catch(err => {
+            console.log('发送请求（no-cors模式）');
         });
+        
+        // 等待80秒（1分20秒），给Google Sheets充足的处理时间
+        await new Promise(resolve => setTimeout(resolve, 80000));
         
         console.log('数据已提交到Google Sheets');
         return true;
